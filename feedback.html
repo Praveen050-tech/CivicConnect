@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Feedback</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+<h2>&#127969; CivicConnect</h2>
+<div>
+<a href="citizen-dashboard.html">Dashboard</a>
+<a href="complaint.html">New Complaint</a>
+<a href="mycomplaints.html">My Complaints</a>
+<a href="login.html" onclick="sessionStorage.clear()" class="btn-danger" style="padding: 6px 12px; border-radius: 5px;">Logout</a>
+</div>
+</nav>
+
+<div class="form-container">
+<h2>Complaint Feedback</h2>
+
+<form id="fbForm" onsubmit="return submitFeedback(event)">
+<input type="text" id="complaint_id" placeholder="Complaint ID (e.g. CMP20261006...)" required>
+<select id="rating">
+<option value="5">&#11088;&#11088;&#11088;&#11088;&#11088; Excellent</option>
+<option value="4">&#11088;&#11088;&#11088;&#11088; Good</option>
+<option value="3">&#11088;&#11088;&#11088; Average</option>
+<option value="2">&#11088;&#11088; Poor</option>
+<option value="1">&#11088; Very Poor</option>
+</select>
+<textarea id="comments" placeholder="Your comments" rows="5"></textarea>
+<button type="submit">Submit Feedback</button>
+</form>
+
+<p id="successMsg" style="color:green; text-align:center; margin-top:15px; display:none;">
+Thank you for your feedback! &#11088;
+</p>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const cid = params.get("complaint_id");
+if (cid) {
+    document.getElementById("complaint_id").value = cid;
+}
+
+function submitFeedback(e) {
+    e.preventDefault();
+    document.getElementById("successMsg").style.display = "block";
+    return false;
+}
+</script>
+</body>
+</html>

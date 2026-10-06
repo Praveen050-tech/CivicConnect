@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Citizen Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+<h2>&#127969; CivicConnect</h2>
+<div>
+<a href="citizen-dashboard.html">Dashboard</a>
+<a href="complaint.html">New Complaint</a>
+<a href="mycomplaints.html">My Complaints</a>
+<a href="feedback.html">Feedback</a>
+<a href="login.html" onclick="sessionStorage.clear()" class="btn-danger" style="padding: 6px 12px; border-radius: 5px;">Logout</a>
+</div>
+</nav>
+
+<div class="dashboard">
+<h1 id="welcomeUser">Welcome, Arun &#128075;</h1>
+
+<div class="stats">
+
+<div class="stat">
+<h2>&#128226;</h2>
+<h3>Report Problem</h3>
+<p>Submit a new complaint.</p>
+<a href="complaint.html" class="btn">Submit</a>
+</div>
+
+<div class="stat">
+<h2>&#128269;</h2>
+<h3>Track Complaint</h3>
+<p>Check your complaint status.</p>
+<a href="mycomplaints.html" class="btn">Track</a>
+</div>
+
+<div class="stat">
+<h2>&#11088;</h2>
+<h3>Feedback</h3>
+<p>Give feedback for resolved complaints.</p>
+<a href="feedback.html" class="btn">Feedback</a>
+</div>
+
+</div>
+</div>
+
+<script>
+const user = sessionStorage.getItem("user_name");
+if (user) {
+    document.getElementById("welcomeUser").innerHTML = "Welcome, " + user + " &#128075;";
+}
+</script>
+</body>
+</html>

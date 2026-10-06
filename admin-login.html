@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Login</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+<h2>&#127969; CivicConnect Admin</h2>
+<div>
+<a href="index.html">Home</a>
+<a href="login.html">Citizen Login</a>
+</div>
+</nav>
+
+<div class="form-container">
+<h2>Admin Login</h2>
+
+<form id="adminForm" onsubmit="return handleAdminLogin(event)">
+<input type="email" id="email" placeholder="Admin Email" value="admin@gmail.com" required>
+<input type="password" id="password" placeholder="Password" value="admin123" required>
+<button type="submit">Admin Login</button>
+</form>
+
+<div id="errorMsg" style="color:red; text-align:center; margin-top:15px; display:none;"></div>
+</div>
+
+<script>
+function handleAdminLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if (email === "admin@gmail.com" && password === "admin123") {
+        sessionStorage.setItem("admin", "true");
+        window.location.href = "admin-dashboard.html";
+        return false;
+    } else {
+        const errorDiv = document.getElementById("errorMsg");
+        errorDiv.innerText = "Invalid admin login! Use admin@gmail.com / admin123";
+        errorDiv.style.display = "block";
+    }
+    return false;
+}
+</script>
+</body>
+</html>

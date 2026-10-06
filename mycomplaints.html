@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Complaints</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+<h2>&#127969; CivicConnect</h2>
+<div>
+<a href="citizen-dashboard.html">Dashboard</a>
+<a href="complaint.html">New Complaint</a>
+<a href="feedback.html">Feedback</a>
+<a href="login.html" onclick="sessionStorage.clear()" class="btn-danger" style="padding: 6px 12px; border-radius: 5px;">Logout</a>
+</div>
+</nav>
+
+<div class="dashboard">
+<h1>My Complaints</h1>
+
+<table>
+<thead>
+<tr>
+<th>Complaint ID</th>
+<th>Category</th>
+<th>Location</th>
+<th>Description</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="complaintsTableBody">
+</tbody>
+</table>
+</div>
+
+<script>
+const defaultComplaints = [
+  { id: 1, complaint_id: 'CMP20261006001', category: 'Water Leakage', location: 'Main Street, Sector 4', description: 'Heavy water pipe leakage causing street flooding near apartment entrance.', status: 'Pending', assigned_to: 'Not Assigned' },
+  { id: 2, complaint_id: 'CMP20261006002', category: 'Street Light', location: 'Oak Avenue, Ward 12', description: 'Streetlight bulb blown out, area is pitch dark at night.', status: 'In Progress', assigned_to: 'Officer Rajesh Kumar' },
+  { id: 3, complaint_id: 'CMP20261006003', category: 'Garbage Collection', location: 'Market Road, Block B', description: 'Garbage bin overflowing for the past 3 days, needs urgent clearing.', status: 'Resolved', assigned_to: 'Inspector Suresh' },
+  { id: 4, complaint_id: 'CMP20261006004', category: 'Damaged Road', location: 'Park View Avenue', description: 'Deep pothole causing vehicle damage near school gate.', status: 'In Progress', assigned_to: 'Engineer Anil Verma' },
+  { id: 5, complaint_id: 'CMP20261006005', category: 'Fallen Tree', location: 'Green Park Road', description: 'Large tree branch fallen after storm blocking left lane.', status: 'Pending', assigned_to: 'Not Assigned' }
+];
+
+let complaints = JSON.parse(localStorage.getItem("complaints_data"));
+if (!complaints || complaints.length === 0) {
+    complaints = defaultComplaints;
+    localStorage.setItem("complaints_data", JSON.stringify(complaints));
+}
+
+const tbody = document.getElementById("complaintsTableBody");
+tbody.innerHTML = complaints.map(c => {
+    let stClass = "status-pending";
+    if (c.status === "In Progress") stClass = "status-in-progress";
+    else if (c.status === "Resolved") stClass = "status-resolved";
+
+    return `<tr>
+        <td>${c.complaint_id}</td>
+        <td>${c.category}</td>
+        <td>${c.location}</td>
+        <td>${c.description}</td>
+        <td><span class="status ${stClass}">${c.status}</span></td>
+        <td><a class="btn" href="feedback.html?complaint_id=${c.complaint_id}" style="padding: 6px 12px; font-size: 12px;">Feedback</a></td>
+    </tr>`;
+}).join("");
+</script>
+</body>
+</html>

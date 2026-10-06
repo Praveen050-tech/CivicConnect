@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Citizen Login</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+<h2>&#127969; CivicConnect</h2>
+<div>
+    <a href="index.html">Home</a>
+    <a href="admin-login.html">Admin Login</a>
+</div>
+</nav>
+
+<div class="form-container">
+<h2>Citizen Login</h2>
+
+<form id="loginForm" onsubmit="return handleLogin(event)">
+<input type="email" id="email" placeholder="Email" value="arun@gmail.com" required>
+<input type="password" id="password" placeholder="Password" value="12345" required>
+<button type="submit">Login</button>
+</form>
+
+<div id="errorMsg" style="color:red; text-align:center; margin-top:15px; display:none;"></div>
+
+<p style="text-align:center; margin-top:15px;">
+New user? <a href="register.html">Register</a>
+</p>
+</div>
+
+<script>
+function handleLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if (email === "arun@gmail.com" && password === "12345") {
+        sessionStorage.setItem("user_id", "2");
+        sessionStorage.setItem("user_name", "Arun");
+        window.location.href = "citizen-dashboard.html";
+        return false;
+    } else {
+        const errorDiv = document.getElementById("errorMsg");
+        errorDiv.innerText = "Invalid citizen credentials! Use arun@gmail.com / 12345";
+        errorDiv.style.display = "block";
+    }
+    return false;
+}
+</script>
+</body>
+</html>

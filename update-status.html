@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Update Complaint</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+<h2>&#127969; CivicConnect Admin</h2>
+<div>
+<a href="admin-dashboard.html">Dashboard</a>
+<a href="reports.html">Reports</a>
+<a href="admin-login.html" onclick="sessionStorage.clear()" class="btn-danger" style="padding: 6px 12px; border-radius: 5px;">Logout</a>
+</div>
+</nav>
+
+<div class="form-container">
+<h2>Update Complaint</h2>
+
+<form id="updateForm" onsubmit="return handleUpdate(event)">
+<select id="status">
+<option value="Pending">Pending</option>
+<option value="In Progress">In Progress</option>
+<option value="Resolved">Resolved</option>
+</select>
+
+<input type="text" id="assigned_to" placeholder="Assigned Worker / Officer">
+<button type="submit">Update Complaint</button>
+</form>
+
+<div id="successMsg" style="display:none; text-align:center; margin-top:15px;">
+<p style="color:green;">Complaint updated successfully!</p>
+<p style="margin-top:15px;"><a href="admin-dashboard.html" class="btn">Back to Dashboard</a></p>
+</div>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const targetId = parseInt(params.get("id")) || 1;
+
+let complaints = JSON.parse(localStorage.getItem("complaints_data") || "[]");
+const targetComp = complaints.find(c => c.id === targetId || c.complaint_id == targetId);
+
+if (targetComp) {
+    document.getElementById("status").value = targetComp.status || "Pending";
+    document.getElementById("assigned_to").value = targetComp.assigned_to !== "Not Assigned" ? targetComp.assigned_to : "";
+}
+
+function handleUpdate(e) {
+    e.preventDefault();
+    const st = document.getElementById("status").value;
+    const assigned = document.getElementById("assigned_to").value.trim() || "Not Assigned";
+
+    if (targetComp) {
+        targetComp.status = st;
+        targetComp.assigned_to = assigned;
+        localStorage.setItem("complaints_data", JSON.stringify(complaints));
+    }
+
+    document.getElementById("updateForm").style.display = "none";
+    document.getElementById("successMsg").style.display = "block";
+    return false;
+}
+</script>
+</body>
+</html>

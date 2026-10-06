@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Complaint Reports</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+<h2>&#127969; CivicConnect Admin</h2>
+<div>
+<a href="admin-dashboard.html">Dashboard</a>
+<a href="reports.html">Reports</a>
+<a href="admin-login.html" onclick="sessionStorage.clear()" class="btn-danger" style="padding: 6px 12px; border-radius: 5px;">Logout</a>
+</div>
+</nav>
+
+<div class="dashboard">
+<h1>Complaint Reports &#128202;</h1>
+
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Total Complaints</th>
+</tr>
+</thead>
+<tbody id="reportsTableBody">
+</tbody>
+</table>
+</div>
+
+<script>
+const defaultComplaints = [
+  { id: 1, category: 'Water Leakage' },
+  { id: 2, category: 'Street Light' },
+  { id: 3, category: 'Garbage Collection' },
+  { id: 4, category: 'Damaged Road' },
+  { id: 5, category: 'Fallen Tree' }
+];
+
+let complaints = JSON.parse(localStorage.getItem("complaints_data")) || defaultComplaints;
+
+const counts = {};
+complaints.forEach(c => {
+    counts[c.category] = (counts[c.category] || 0) + 1;
+});
+
+const tbody = document.getElementById("reportsTableBody");
+tbody.innerHTML = Object.keys(counts).map(cat => `
+    <tr>
+        <td>${cat}</td>
+        <td>${counts[cat]}</td>
+    </tr>
+`).join("");
+</script>
+</body>
+</html>

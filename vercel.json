@@ -1,0 +1,17 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/login.jsp", "destination": "/login.html" },
+    { "source": "/register.jsp", "destination": "/register.html" },
+    { "source": "/citizen-dashboard.jsp", "destination": "/citizen-dashboard.html" },
+    { "source": "/complaint.jsp", "destination": "/complaint.html" },
+    { "source": "/my-complaints.jsp", "destination": "/mycomplaints.html" },
+    { "source": "/mycomplaints.jsp", "destination": "/mycomplaints.html" },
+    { "source": "/feedback.jsp", "destination": "/feedback.html" },
+    { "source": "/admin-login.jsp", "destination": "/admin-login.html" },
+    { "source": "/admin-dashboard.jsp", "destination": "/admin-dashboard.html" },
+    { "source": "/reports.jsp", "destination": "/reports.html" },
+    { "source": "/update-status.jsp", "destination": "/update-status.html" },
+    { "source": "/logout.jsp", "destination": "/login.html" }
+  ]
+}

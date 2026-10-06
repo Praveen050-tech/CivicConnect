@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Submit Complaint</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+<h2>&#127969; CivicConnect</h2>
+<div>
+<a href="citizen-dashboard.html">Dashboard</a>
+<a href="complaint.html">New Complaint</a>
+<a href="mycomplaints.html">My Complaints</a>
+<a href="feedback.html">Feedback</a>
+<a href="login.html" onclick="sessionStorage.clear()" class="btn-danger" style="padding: 6px 12px; border-radius: 5px;">Logout</a>
+</div>
+</nav>
+
+<div class="form-container">
+<h2>Submit Complaint</h2>
+
+<form id="complaintForm" onsubmit="return submitComplaint(event)">
+<select id="category" required>
+<option value="">Select Category</option>
+<option>Water Leakage</option>
+<option>Street Light</option>
+<option>Garbage Collection</option>
+<option>Damaged Road</option>
+<option>Drainage Problem</option>
+<option>Electrical Issue</option>
+<option>Fallen Tree</option>
+<option>Other</option>
+</select>
+
+<input type="text" id="location" placeholder="Problem Location" required>
+<textarea id="description" rows="5" placeholder="Describe the problem" required></textarea>
+<button type="submit">Submit Complaint</button>
+</form>
+
+<div id="successBox" style="display:none; margin-top:20px; color:green; text-align:center;">
+<h3>Complaint Submitted Successfully!</h3>
+<p>Your Complaint ID:</p>
+<h2 id="generatedCid"></h2>
+<p>Status: Pending</p>
+<p style="margin-top:15px;"><a href="mycomplaints.html" class="btn">View My Complaints</a></p>
+</div>
+</div>
+
+<script src="js/script.js"></script>
+<script>
+function submitComplaint(e) {
+    e.preventDefault();
+    if (!confirmComplaint()) return false;
+
+    const cat = document.getElementById("category").value;
+    const loc = document.getElementById("location").value;
+    const desc = document.getElementById("description").value;
+
+    const dateStr = new Date().toISOString().slice(0,10).replace(/-/g,"");
+    const randNum = Math.floor(100 + Math.random() * 900);
+    const cid = "CMP" + dateStr + randNum;
+
+    let complaints = JSON.parse(localStorage.getItem("complaints_data") || "[]");
+    complaints.unshift({
+        id: complaints.length + 1,
+        complaint_id: cid,
+        user_id: 2,
+        category: cat,
+        location: loc,
+        description: desc,
+        status: "Pending",
+        assigned_to: "Not Assigned"
+    });
+    localStorage.setItem("complaints_data", JSON.stringify(complaints));
+
+    document.getElementById("complaintForm").style.display = "none";
+    document.getElementById("generatedCid").innerText = cid;
+    document.getElementById("successBox").style.display = "block";
+    return false;
+}
+</script>
+</body>
+</html>
